@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@uekichinos/counter — Demo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f0f13;
+      color: #f0f0f0;
+    }
+
+    /* ── Hero ────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .hero__title {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .hero__sub {
+      font-size: 1.1rem;
+      color: #aaa;
+      max-width: 480px;
+    }
+
+    .arrow {
+      margin-top: 3rem;
+      font-size: 1.5rem;
+      animation: bounce 1.5s infinite;
+      color: #555;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(8px); }
+    }
+
+    /* ── Sections ────────────────────────────────────────────── */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      gap: 3rem;
+    }
+
+    section:nth-child(odd) { background: #13131a; }
+    section:nth-child(even) { background: #0f0f13; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    h2 {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 600;
+      color: #888;
+      text-align: center;
+    }
+
+    /* ── Stat cards ──────────────────────────────────────────── */
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background: #1a1a24;
+      border: 1px solid #2a2a38;
+      border-radius: 1rem;
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      min-width: 200px;
+      flex: 1;
+    }
+
+    .card__label {
+      font-size: 0.75rem;
+      color: #666;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card__value {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card--blue  .card__value { color: #60a5fa; }
+    .card--green .card__value { color: #34d399; }
+    .card--purple .card__value { color: #a78bfa; }
+    .card--orange .card__value { color: #fb923c; }
+
+    /* ── Highlight text ──────────────────────────────────────── */
+    .highlight-block {
+      max-width: 680px;
+      text-align: center;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      line-height: 1.8;
+      color: #ccc;
+    }
+
+    .highlight-block [data-counter] {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* ── Inline prose ────────────────────────────────────────── */
+    .prose {
+      max-width: 600px;
+      font-size: 1.05rem;
+      line-height: 2;
+      color: #aaa;
+      text-align: center;
+    }
+
+    .prose [data-counter] {
+      display: inline-block;
+      color: #60a5fa;
+      font-weight: 600;
+    }
+
+    /* ── Repeat demo ─────────────────────────────────────────── */
+    .repeat-note {
+      font-size: 0.85rem;
+      color: #555;
+      text-align: center;
+    }
+
+    /* ── Options table ───────────────────────────────────────── */
+    .options {
+      width: 100%;
+      max-width: 700px;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .options th, .options td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #222;
+      text-align: left;
+    }
+
+    .options th { color: #666; font-weight: 500; }
+    .options td { color: #ccc; }
+    .options td code {
+      background: #1e1e2e;
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      color: #a78bfa;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <div class="hero">
+    <span class="hero__eyebrow">@uekichinos/counter</span>
+    <h1 class="hero__title">Running Numbers Demo</h1>
+    <p class="hero__sub">Scroll down to see numbers animate from 0 to their target value — in any string, any format.</p>
+    <div class="arrow">↓</div>
+  </div>
+
+  <!-- ── 1. STAT CARDS ─────────────────────────────────────────── -->
+  <section>
+    <span class="section-label">Section 1 — Stat cards</span>
+    <h2>Plain integers &amp; currency</h2>
+    <div class="cards">
+      <div class="card card--blue">
+        <span class="card__label">Revenue</span>
+        <span class="card__value" data-counter>RM55 billion</span>
+      </div>
+      <div class="card card--green">
+        <span class="card__label">Subscribers</span>
+        <span class="card__value" data-counter>1,500,344</span>
+      </div>
+      <div class="card card--purple">
+        <span class="card__label">Growth</span>
+        <span class="card__value" data-counter>34.67%</span>
+      </div>
+      <div class="card card--orange">
+        <span class="card__label">Partners</span>
+        <span class="card__value" data-counter>RM 55 million</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. INLINE IN PROSE ─────────────────────────────────────── -->
+  <section>
+    <span class="section-label">Section 2 — Numbers inside sentences</span>
+    <h2>Numbers inside full sentences</h2>
+    <div class="prose">
+      <p data-counter>We have 1,500,344 customers subscribe to our system</p>
+      <p data-counter>Over 250 countries and territories served</p>
+      <p data-counter>Uptime maintained at 99.98% for the last 365 days</p>
+    </div>
+  </section>
+
+  <!-- ── 3. MULTIPLE NUMBERS IN ONE STRING ─────────────────────── -->
+  <section>
+    <span class="section-label">Section 3 — Multiple numbers, one string</span>
+    <h2>Multiple numbers extracted from a single element</h2>
+    <div class="highlight-block">
+      <p data-counter>From 12 offices across 48 countries, we serve 3,200,000 users daily</p>
+      <br />
+      <p data-counter>Revenue grew from RM120 million to RM890 million in just 5 years</p>
+    </div>
+  </section>
+
+  <!-- ── 4. SLOW / FAST DURATION ───────────────────────────────── -->
+  <section>
+    <span class="section-label">Section 4 — Duration options</span>
+    <h2>Custom durations</h2>
+    <div class="cards">
+      <div class="card">
+        <span class="card__label">Fast — 800ms</span>
+        <span class="card__value" data-counter data-counter-duration="800">8,450</span>
+      </div>
+      <div class="card card--green">
+        <span class="card__label">Default — 2000ms</span>
+        <span class="card__value" data-counter>8,450</span>
+      </div>
+      <div class="card card--purple">
+        <span class="card__label">Slow — 4000ms</span>
+        <span class="card__value" data-counter data-counter-duration="4000">8,450</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. IMMEDIATE TRIGGER ───────────────────────────────────── -->
+  <section>
+    <span class="section-label">Section 5 — Trigger: immediate</span>
+    <h2>These counters started the moment the page loaded</h2>
+    <div class="cards" id="immediate-cards">
+      <div class="card card--blue">
+        <span class="card__label">Page views today</span>
+        <span class="card__value" id="imm1">124,390</span>
+      </div>
+      <div class="card card--orange">
+        <span class="card__label">Avg. session</span>
+        <span class="card__value" id="imm2">4.37 min</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. REPEAT ON RE-ENTER ──────────────────────────────────── -->
+  <section>
+    <span class="section-label">Section 6 — repeat: true</span>
+    <h2>Re-animates every time it scrolls into view</h2>
+    <div class="cards">
+      <div class="card card--green">
+        <span class="card__label">Scroll away &amp; back</span>
+        <span class="card__value" data-counter data-counter-repeat="true">99.99%</span>
+      </div>
+      <div class="card card--blue">
+        <span class="card__label">Scroll away &amp; back</span>
+        <span class="card__value" data-counter data-counter-repeat="true">2,048,000</span>
+      </div>
+    </div>
+    <p class="repeat-note">↑ Scroll past this section and back — the numbers restart each time</p>
+  </section>
+
+  <script type="module">
+    import { initCounters, animateCounter } from './dist/index.js'
+
+    // Section 1–4, 6: scroll-triggered (default)
+    initCounters('[data-counter]')
+
+    // Section 5: immediate trigger (programmatic)
+    animateCounter(document.getElementById('imm1'), { trigger: 'immediate', duration: 3000 })
+    animateCounter(document.getElementById('imm2'), { trigger: 'immediate', duration: 3000 })
+  </script>
+
+</body>
+</html>
