@@ -1,0 +1,56 @@
+# Changelog
+
+All notable changes to `@uekichinos/counter` are documented here.
+
+## [0.1.8] - 2026-04-08
+### Added
+- Socket.dev security badge in README
+
+## [0.1.7] - 2026-04-08
+### Fixed
+- npm Automation token required for CI publishing (bypasses 2FA)
+
+## [0.1.6] - 2026-04-08
+### Fixed
+- Made `tsconfig.json` self-contained, removed dependency on monorepo `../../tsconfig.base.json`
+
+## [0.1.5] - 2026-04-08
+### Fixed
+- Removed `--frozen-lockfile` from CI (no standalone `pnpm-lock.yaml` in this repo)
+- Removed `cache: pnpm` from `setup-node` action (caused lock file check failure)
+
+## [0.1.4] - 2026-04-08
+### Fixed
+- Opted into Node.js 24 for GitHub Actions to suppress deprecation warnings
+
+## [0.1.3] - 2026-04-08
+### Added
+- GitHub Actions publish workflow with npm provenance
+- `repository` field linked to `github.com/uekichinos/counter`
+
+## [0.1.2] - 2026-04-08
+### Added
+- `author` and `homepage` fields in `package.json`
+- Normalized `repository.url` format
+
+## [0.1.1] - 2026-04-08
+### Improved
+- Source maps excluded from published package (size: 36.6 KB → 16 KB)
+- `prepublishOnly` script — auto build + test before every publish
+- `prefers-reduced-motion` support — skips animation for users with motion sensitivity
+- `onComplete` callback option
+- `startValue` option — animate from a custom starting value instead of 0
+
+## [0.1.0] - 2026-04-08
+### Added
+- Initial public release
+- `animateCounter(el, options)` — animate a single element
+- `initCounters(selector, options)` — declarative HTML setup via `data-counter`
+- Per-element data attribute overrides: `data-counter-duration`, `data-counter-trigger`, `data-counter-repeat`
+- Scroll-triggered animation via Intersection Observer (`trigger: 'scroll'`)
+- Immediate animation (`trigger: 'immediate'`)
+- Repeat on viewport re-entry (`repeat: true`)
+- Preserves surrounding text and number formatting (commas, decimals) during animation
+- Easing options: `linear`, `easeOut`, `easeInOut`
+- ESM + CJS + TypeScript types
+- 36 tests
