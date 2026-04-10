@@ -24,6 +24,10 @@
     "url": "git+https://github.com/uekichinos/counter.git"
   },
   "license": "MIT",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/uekichinos"
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -40,7 +44,8 @@
     "dist/*.cjs",
     "dist/*.d.ts",
     "dist/*.d.cts",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "SECURITY.md"
   ],
   "publishConfig": {
     "access": "public"
