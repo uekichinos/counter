@@ -2,6 +2,11 @@
 
 All notable changes to `@uekichinos/counter` are documented here.
 
+## [0.1.11] - 2026-04-11
+### Added
+- `SECURITY.md` — vulnerability reporting policy
+- `funding` field in `package.json` — GitHub Sponsors link
+
 ## [0.1.10] - 2026-04-08
 ### Changed
 - Upgraded vitest 2.1.9 → 3.2.4 (vitest 4 skipped — requires Vite 6+)
