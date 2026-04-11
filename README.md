@@ -1,6 +1,6 @@
 # @uekichinos/counter
 
-[![Socket Badge](https://badge.socket.dev/npm/package/@uekichinos/counter)](https://socket.dev/npm/package/@uekichinos/counter)
+[![Socket Badge](https://badge.socket.dev/npm/package/@uekichinos/counter/0.1.14)](https://socket.dev/npm/package/@uekichinos/counter/overview/0.1.14)
 
 Lightweight counter animation library that detects and animates all numbers within any string — including integers, decimals, and comma-formatted values.
 
