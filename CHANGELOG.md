@@ -2,6 +2,10 @@
 
 All notable changes to `@uekichinos/counter` are documented here.
 
+## [0.1.13] - 2026-04-11
+### Changed
+- Updated socket.dev badge URL to use badge.socket.dev and always reflect latest version
+
 ## [0.1.12] - 2026-04-11
 ### Fixed
 - `data-counter-duration` with non-numeric value no longer sets `NaN` duration
