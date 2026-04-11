@@ -2,6 +2,11 @@
 
 All notable changes to `@uekichinos/counter` are documented here.
 
+## [0.1.14] - 2026-04-11
+### Added
+- `bugs` field pointing to GitHub issues
+- `engines` field declaring Node.js >= 18 compatibility
+
 ## [0.1.13] - 2026-04-11
 ### Changed
 - Updated socket.dev badge URL to use badge.socket.dev and always reflect latest version
