@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { animateCounter } from './animate-counter'
+import { animateCounter } from '../animate-counter'
 
 // --- rAF / performance mock -------------------------------------------
 
@@ -215,5 +215,45 @@ describe('animateCounter – prefers-reduced-motion', () => {
     const div = el('55')
     animateCounter(div, { trigger: 'immediate', onComplete })
     expect(onComplete).toHaveBeenCalledOnce()
+  })
+})
+
+describe('animateCounter – multiple numbers', () => {
+  it('animates all numbers in a multi-number string', () => {
+    const div = el('From 12 offices across 48 countries')
+    animateCounter(div, { trigger: 'immediate', duration: 2000 })
+    flush()
+    expect(div.textContent).toBe('From 12 offices across 48 countries')
+  })
+
+  it('shows partial values for both numbers mid-animation', () => {
+    const div = el('12 and 48')
+    animateCounter(div, { trigger: 'immediate', duration: 2000, easing: 'linear' })
+    now += 1000
+    const pending = [...rafCallbacks]
+    rafCallbacks = []
+    pending.forEach((cb) => cb(now))
+    // halfway: 12*0.5=6, 48*0.5=24
+    expect(div.textContent).toBe('6 and 24')
+  })
+})
+
+describe('animateCounter – easeInOut', () => {
+  it('reaches the final value', () => {
+    const div = el('100')
+    animateCounter(div, { trigger: 'immediate', duration: 2000, easing: 'easeInOut' })
+    flush()
+    expect(div.textContent).toBe('100')
+  })
+
+  it('is less than half at the quarter-point (slow start)', () => {
+    const div = el('100')
+    animateCounter(div, { trigger: 'immediate', duration: 2000, easing: 'easeInOut' })
+    now += 500 // 25% through
+    const pending = [...rafCallbacks]
+    rafCallbacks = []
+    pending.forEach((cb) => cb(now))
+    const value = parseInt(div.textContent ?? '0', 10)
+    expect(value).toBeLessThan(50)
   })
 })

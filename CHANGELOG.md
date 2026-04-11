@@ -2,6 +2,18 @@
 
 All notable changes to `@uekichinos/counter` are documented here.
 
+## [0.1.15] - 2026-04-12
+### Changed
+- Moved all test files from `src/` to `src/__tests__/` — tests no longer co-located with source
+
+### Added
+- Expanded test suite from 44 to 62 tests
+- `easing`: easeOut midpoint > 0.5, easeInOut midpoint symmetry, easeInOut slow-start, monotonic increase
+- `format`: zero as integer/decimal, large comma-grouped value, decimal+commas mid-animation
+- `parse`: number at string start/end, raw value preservation, multi-decimal count
+- `animate-counter`: simultaneous multi-number animation, partial mid-animation values, easeInOut coverage
+- `init-counters`: `data-counter-repeat="false"` override, mixed text content
+
 ## [0.1.14] - 2026-04-11
 ### Added
 - `bugs` field pointing to GitHub issues

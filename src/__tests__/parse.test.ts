@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseString } from './parse'
+import { parseString } from '../parse'
 
 describe('parseString', () => {
   it('extracts a plain integer', () => {
@@ -44,5 +44,27 @@ describe('parseString', () => {
   it('handles comma-grouped decimal', () => {
     const result = parseString('$1,234.56 total')
     expect(result.numbers[0]).toMatchObject({ value: 1234.56, decimals: 2, hasCommas: true })
+  })
+
+  it('extracts number at start of string', () => {
+    const result = parseString('100 items in stock')
+    expect(result.numbers[0].value).toBe(100)
+    expect(result.template).toBe('{{0}} items in stock')
+  })
+
+  it('extracts number at end of string', () => {
+    const result = parseString('Total count: 42')
+    expect(result.numbers[0].value).toBe(42)
+    expect(result.template).toBe('Total count: {{0}}')
+  })
+
+  it('preserves raw string for comma-grouped values', () => {
+    const result = parseString('1,500,344')
+    expect(result.numbers[0].raw).toBe('1,500,344')
+  })
+
+  it('returns correct decimals count for multi-decimal number', () => {
+    const result = parseString('99.999%')
+    expect(result.numbers[0].decimals).toBe(3)
   })
 })

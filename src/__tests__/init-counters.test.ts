@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { initCounters } from './init-counters'
+import { initCounters } from '../init-counters'
 
 // --- rAF / performance mock -------------------------------------------
 
@@ -138,5 +138,27 @@ describe('initCounters', () => {
     expect(() =>
       initCounters('[data-counter]', { trigger: 'immediate', duration: 2000 }),
     ).not.toThrow()
+  })
+
+  it('applies data-counter-repeat="false" override (animates on first intersection)', () => {
+    document.body.innerHTML = `<span data-counter data-counter-repeat="false">10</span>`
+    initCounters('[data-counter]', { trigger: 'scroll', duration: 2000, repeat: true })
+    // with repeat=false override, should still animate on first intersection
+    triggerIntersect(true)
+    expect(rafCallbacks.length).toBeGreaterThan(0)
+    flush()
+    expect(document.querySelector('[data-counter]')!.textContent).toBe('10')
+  })
+
+  it('animates elements with mixed text content', () => {
+    document.body.innerHTML = `
+      <p data-counter>RM55 billion</p>
+      <p data-counter>34.67%</p>
+    `
+    initCounters('[data-counter]', { trigger: 'immediate', duration: 2000 })
+    flush()
+    const ps = document.querySelectorAll('[data-counter]')
+    expect(ps[0].textContent).toBe('RM55 billion')
+    expect(ps[1].textContent).toBe('34.67%')
   })
 })

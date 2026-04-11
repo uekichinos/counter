@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatNumber } from './format'
+import { formatNumber } from '../format'
 
 describe('formatNumber', () => {
   it('formats an integer with no commas', () => {
@@ -29,5 +29,21 @@ describe('formatNumber', () => {
   it('floors decimal count from original format', () => {
     // mid-animation: 17.334... shown as 2 decimal places
     expect(formatNumber(17.334, 2, false)).toBe('17.33')
+  })
+
+  it('formats zero as plain integer', () => {
+    expect(formatNumber(0, 0, false)).toBe('0')
+  })
+
+  it('formats zero as decimal with padding', () => {
+    expect(formatNumber(0, 3, false)).toBe('0.000')
+  })
+
+  it('formats large comma-grouped number correctly', () => {
+    expect(formatNumber(1000000, 0, true)).toBe('1,000,000')
+  })
+
+  it('formats value with commas and decimals mid-animation', () => {
+    expect(formatNumber(9999.99, 2, true)).toBe('9,999.99')
   })
 })
