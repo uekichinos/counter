@@ -2,6 +2,18 @@
 
 All notable changes to `@uekichinos/counter` are documented here.
 
+## [0.1.12] - 2026-04-11
+### Fixed
+- `data-counter-duration` with non-numeric value no longer sets `NaN` duration
+- Script tag example in README now uses correct IIFE bundle (`dist/index.global.js`)
+
+### Added
+- IIFE build (`dist/index.global.js`) — exposes `Counter` global for `<script>` tag usage
+- Tests for `initCounters` — 8 new tests covering all data attribute overrides (44 total, up from 36)
+
+### Improved
+- Easing type narrowed from `Record<string, EasingFn>` to explicit union keys
+
 ## [0.1.11] - 2026-04-11
 ### Added
 - `SECURITY.md` — vulnerability reporting policy

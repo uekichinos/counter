@@ -24,7 +24,10 @@ export function initCounters(selector: string, options: CounterOptions = {}): vo
     const elOptions: CounterOptions = { ...options }
 
     const duration = el.dataset.counterDuration
-    if (duration) elOptions.duration = parseInt(duration, 10)
+    if (duration) {
+      const parsed = parseInt(duration, 10)
+      if (!isNaN(parsed)) elOptions.duration = parsed
+    }
 
     const trigger = el.dataset.counterTrigger
     if (trigger === 'immediate' || trigger === 'scroll') elOptions.trigger = trigger

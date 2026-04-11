@@ -57,7 +57,7 @@ animateCounter(el, { duration: 3000, trigger: 'scroll' })
 ### Via `<script>` tag (no bundler)
 
 ```html
-<script src="https://unpkg.com/@uekichinos/counter/dist/index.js"></script>
+<script src="https://unpkg.com/@uekichinos/counter/dist/index.global.js"></script>
 <script>
   Counter.initCounters('[data-counter]')
 </script>

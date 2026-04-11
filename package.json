@@ -1,6 +1,6 @@
 {
   "name": "@uekichinos/counter",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Lightweight counter animation library that detects and animates all numbers within any string — including integers, decimals, and comma-formatted values like '1,500,344' or '34.67%'. Supports scroll-triggered or immediate start, repeat on re-entry, custom duration, easing, start value, onComplete callback, and respects prefers-reduced-motion. Zero dependencies, works in any web application via ESM, CJS, or script tag.",
   "keywords": [
     "uekichinos",
@@ -44,6 +44,7 @@
     "dist/*.cjs",
     "dist/*.d.ts",
     "dist/*.d.cts",
+    "dist/*.global.js",
     "CHANGELOG.md",
     "SECURITY.md"
   ],
